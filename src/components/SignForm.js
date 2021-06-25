@@ -11,7 +11,7 @@ const SignForm = ({...props}) => {
           <button className="button sign__button" type="submit">{props.buttonLabel}</button>
         </fieldset>
       </form>
-      <p className={`sign__text ${props.active}`}>Уже зарегестрированы? <Link to="/sign-in" className="sign__link">Войти</Link> </p>
+      <p className={`sign__text ${props.active}`}>Уже зарегестрированы? <Link to="/signin" className="sign__link">Войти</Link> </p>
     </div>
   )
 }

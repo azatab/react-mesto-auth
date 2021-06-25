@@ -19,7 +19,7 @@ const Login = ({handleLogin}) => {
     e.preventDefault()
     const {email, password} = data
     console.log(`Это ${email} и  ${password}`)
-    //handleLogin(email, password)
+    handleLogin(email, password)
 
   }
   return (

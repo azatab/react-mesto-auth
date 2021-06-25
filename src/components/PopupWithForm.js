@@ -4,7 +4,9 @@ function PopupWithForm(props) {
   return (
     <div className= {`popup popup-${props.name} ${props.isOpen ? 'popup_is-opened' : ''}`}>
       <div className="popup__container">
-        <h2 className="popup__title">{props.title}</h2>
+        {
+          props.withSubmit && (<h2 className="popup__title">{props.title}</h2>)
+        }
         <form className="form" name={`${props.name}-form`} onSubmit = {props.onSubmit} >
           <fieldset className="form__fieldset">
             {props.children}

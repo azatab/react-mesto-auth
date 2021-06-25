@@ -4,7 +4,7 @@ import Footer from './Footer'
 import ImagePopup from './ImagePopup'
 import React from 'react'
 import api from '../utils/api'
-import auth from '../utils/auth'
+import * as auth from '../utils/auth'
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
@@ -15,8 +15,9 @@ import Register from './Register'
 import ProtectedRoute from './ProtectedRoute'
 import InfoTooltip from './InfoTooltip'
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
+import accept from '../images/accepted.png'
 
-function App() {
+const App = () => {
   const [currentUser, setCurrentUser] = React.useState({})
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
@@ -26,11 +27,13 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({})
   const [cardToDelete, setCardToDelete] = React.useState({})
   const [cards, setCards] = React.useState([])
+  const [email, setEmail] = React.useState('')
   const [loggedIn, setLoggedIn] = React.useState(true)
   const [message, setMessage] = React.useState({
     text: '',
     image: ''
   })
+  const history = useHistory()
 
   React.useEffect(() => {
     Promise.all([api.getCards(), api.getUserInfo()])
@@ -120,17 +123,49 @@ function App() {
     setCardToDelete(card)
   }
 
+  const handleLogin = (email, password) => {
+    console.log(email, password)
+  }
+  
+  const handleRegister = (email, password) => {
+    auth.register(email, password)
+      .then((data) => {
+        if (data) {
+          localStorage.setItem('jwt', data.jwt)
+          setEmail(data.data.email)
+        }
+        history.push('/signin')
+        setMessage({
+          text: 'Вы успешно зарегистрировались!',
+          image: accept
+        })
+        setInfoTooltipOpen(true)
+      })
+      .catch(err => {
+        console.log(`Ошибка - ${err}`)
+        setMessage({
+          text: 'Что-то пошло не так! Попробуйте ещё раз.',
+          image: '../images/declined.png'
+        })
+        setInfoTooltipOpen(true)
+      })
+  }
+
   return (
     <div className="page">
       <div className="page__container">
         <CurrentUserContext.Provider value = {currentUser}>
           <Header />
           <Switch>
-            <Route path="/sign-up">
-              <Register />
+            <Route path="/signup">
+              <Register 
+                handleRegister = {handleRegister}
+              />
             </Route>
-            <Route path="/sign-in">
-              <Login />
+            <Route path="/signin">
+              <Login 
+                handleLogin = {handleLogin}
+              />
             </Route>
             <Route exact path="/">
               {loggedIn 
@@ -156,7 +191,9 @@ function App() {
               onCardDelete = {handleCardDelete}
               /> */}
             <Route path="*">
-              <Login />
+              <Login 
+                handleLogin = {handleLogin}
+              />
             </Route>
           </Switch>
           <Footer />
