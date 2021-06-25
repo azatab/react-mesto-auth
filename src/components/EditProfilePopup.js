@@ -42,6 +42,7 @@ function EditProfilePopup ({onUpdateUser, ...rest}) {
       }
       buttonLabel={'Сохранить'}
       onSubmit = {handleSubmit}
+      withSubmit = {true}
       {...rest}
     />
   )

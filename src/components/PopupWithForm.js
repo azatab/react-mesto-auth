@@ -8,7 +8,9 @@ function PopupWithForm(props) {
         <form className="form" name={`${props.name}-form`} onSubmit = {props.onSubmit} >
           <fieldset className="form__fieldset">
             {props.children}
-            <button className="button form__save" type="submit" aria-label="сохранить">{props.buttonLabel}</button>
+            {
+              props.withSubmit && (<button className="button form__save" type="submit" aria-label="сохранить">{props.buttonLabel}</button>)
+            }
           </fieldset>
         </form>
         <button className="button popup__close" type="button" aria-label="закрыть" onClick={props.onClose}></button>

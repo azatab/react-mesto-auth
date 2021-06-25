@@ -34,6 +34,7 @@ function AddPlacePopup({onAddPlace, isOpen,...rest}) {
       onSubmit = {handleSubmit}
       {...rest}
       isOpen = {isOpen}
+      withSubmit = {true}
       >
         <input className="form__input" type="text" id="input-place-name" aria-label="Название" placeholder="Название" name="place" minLength="2" maxLength="30" required value={name || ''} onChange={handleNameChange}/>
         <span className="input-place-name-error form__input-error"></span>

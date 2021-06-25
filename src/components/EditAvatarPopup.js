@@ -27,6 +27,7 @@ function EditAvatarPopup({onUpdateAvatar,...rest}) {
         }
         buttonLabel={'Сохранить'}
         onSubmit = {handleSubmit}
+        withSubmit = {true}
         {...rest}
         //isOpen = {isEditAvatarPopupOpen}
     />
