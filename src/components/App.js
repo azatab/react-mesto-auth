@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute'
 import InfoTooltip from './InfoTooltip'
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
 import accept from '../images/accepted.png'
+import decline from '../images/declined.png'
 
 const App = () => {
   const [currentUser, setCurrentUser] = React.useState({})
@@ -28,12 +29,30 @@ const App = () => {
   const [cardToDelete, setCardToDelete] = React.useState({})
   const [cards, setCards] = React.useState([])
   const [email, setEmail] = React.useState('')
-  const [loggedIn, setLoggedIn] = React.useState(true)
+  const [loggedIn, setLoggedIn] = React.useState(false)
   const [message, setMessage] = React.useState({
     text: '',
     image: ''
   })
   const history = useHistory()
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+      auth.checkToken(jwt)
+        .then(res => {
+          if(res) {
+            setLoggedIn(true)
+            setEmail(res.data.email)
+            history.push('/')
+          }
+        })
+        .catch(err => {
+          console.log(`Ошибка - ${err}`)
+        })
+    }
+    // eslint-disable-next-line
+  }, [])
 
   React.useEffect(() => {
     Promise.all([api.getCards(), api.getUserInfo()])
@@ -125,6 +144,21 @@ const App = () => {
 
   const handleLogin = (email, password) => {
     console.log(email, password)
+    auth.login(email, password)
+      .then((data) => {
+        localStorage.setItem('jwt', data.token)
+        setEmail(email)
+        setLoggedIn(true)
+        history.push('/')
+      })
+      .catch(err => {
+        console.log(`Ошибка - ${err}`)
+        setMessage({
+          text: 'Что-то пошло не так! Попробуйте ещё раз.',
+          image: decline
+        })
+        setInfoTooltipOpen(true)
+      })
   }
   
   const handleRegister = (email, password) => {
@@ -145,17 +179,28 @@ const App = () => {
         console.log(`Ошибка - ${err}`)
         setMessage({
           text: 'Что-то пошло не так! Попробуйте ещё раз.',
-          image: '../images/declined.png'
+          image: decline
         })
         setInfoTooltipOpen(true)
       })
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt')
+    setEmail('')
+    setLoggedIn(false)
+    history.push('/signin')
   }
 
   return (
     <div className="page">
       <div className="page__container">
         <CurrentUserContext.Provider value = {currentUser}>
-          <Header />
+          <Header 
+            loggedIn = {loggedIn}
+            email = {email}
+            handleLogout = {handleLogout}
+          />
           <Switch>
             <Route path="/signup">
               <Register 
