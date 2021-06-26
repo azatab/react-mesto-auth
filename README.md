@@ -30,7 +30,7 @@ Mesto - интерактивная страница с возможностью 
 * Адаптивная верстка
 * React
 
-Адрес: https://azatab.github.io/mesto-react/
+Адрес: https://azatab.github.io/react-mesto-auth/
 
 # Getting Started with Create React App
 
