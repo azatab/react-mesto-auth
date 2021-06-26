@@ -18,10 +18,9 @@ const Register = ({handleRegister}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const {email, password} = data
-    //console.log(`Это ${email} и ${password} at Reg component`)
     handleRegister(email, password)
-
   }
+  
   return (
     <SignForm 
       title = {'Регистрация'}

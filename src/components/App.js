@@ -99,15 +99,12 @@ const App = () => {
   }
 
   function closeAllPopups() {
-    //console.log(e)
-    // if (e.target === e.currentTarget || e.key === 'Escape') {
-      setEditProfilePopupOpen(false)
-      setAddPlacePopupOpen(false)
-      setEditAvatarPopupOpen(false)
-      setConfirmationPopupOpen(false)
-      setInfoTooltipOpen(false)
-      setSelectedCard({})
-    //}
+    setEditProfilePopupOpen(false)
+    setAddPlacePopupOpen(false)
+    setEditAvatarPopupOpen(false)
+    setConfirmationPopupOpen(false)
+    setInfoTooltipOpen(false)
+    setSelectedCard({})
   }
 
   function handleUpdateUser (inputValues) {
@@ -143,7 +140,6 @@ const App = () => {
   }
 
   const handleLogin = (email, password) => {
-    console.log(email, password)
     auth.login(email, password)
       .then((data) => {
         localStorage.setItem('jwt', data.token)

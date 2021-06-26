@@ -4,7 +4,6 @@ import {Link, useLocation} from 'react-router-dom'
 
 function Header(props) {
   const location = useLocation()
-  console.log(location)
 
   return (
     <header className="header page__section">
