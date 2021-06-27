@@ -32,19 +32,15 @@ function EditProfilePopup ({onUpdateUser, ...rest}) {
     <PopupWithForm 
       name={'edit'}
       title={'Редактировать профиль'}
-      children={
-         <>
-          <input className="form__input" type="text" id="input-name" aria-label="имя" minLength="2" maxLength="40" required value={name || ''} onChange={handleNameChange}/>
-          <span className="input-name-error form__input-error"></span>
-          <input className="form__input" type="text" id="input-job" aria-label="работа" minLength="2" maxLength="200" required value={description || ''} onChange={handleDesciptionChange}/>
-          <span className="input-job-error form__input-error"></span>
-        </>
-      }
       buttonLabel={'Сохранить'}
       onSubmit = {handleSubmit}
-      withSubmit = {true}
       {...rest}
-    />
+    >
+      <input className="form__input" type="text" id="input-name" aria-label="имя" minLength="2" maxLength="40" required value={name || ''} onChange={handleNameChange}/>
+      <span className="input-name-error form__input-error"></span>
+      <input className="form__input" type="text" id="input-job" aria-label="работа" minLength="2" maxLength="200" required value={description || ''} onChange={handleDesciptionChange}/>
+      <span className="input-job-error form__input-error"></span>
+    </PopupWithForm>
   )
 }
 

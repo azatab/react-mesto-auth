@@ -14,7 +14,7 @@ import Login from './Login'
 import Register from './Register'
 import ProtectedRoute from './ProtectedRoute'
 import InfoTooltip from './InfoTooltip'
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 import accept from '../images/accepted.png'
 import decline from '../images/declined.png'
 
@@ -208,21 +208,11 @@ const App = () => {
                 handleLogin = {handleLogin}
               />
             </Route>
-            <Route exact path="/">
-              {loggedIn 
-                ? <ProtectedRoute 
-                    loggedIn = {loggedIn} 
-                    component = {Main} 
-                    onEditProfile = {handleEditProfileClick}
-                    onAddPlace = {handleAddPlaceClick}
-                    onEditAvatar = {handleEditAvatarClick}
-                    onCardClick = {handleCardClick}
-                    cards = {cards}
-                    onCardLike = {handleCardLike}
-                    onCardDelete = {handleCardDelete}/> 
-                : <Redirect to = "/sign-in" />}
-            </Route>
-            {/* <Main 
+                        
+            <ProtectedRoute 
+              exact path="/"
+              loggedIn = {loggedIn} 
+              component = {Main} 
               onEditProfile = {handleEditProfileClick}
               onAddPlace = {handleAddPlaceClick}
               onEditAvatar = {handleEditAvatarClick}
@@ -230,7 +220,8 @@ const App = () => {
               cards = {cards}
               onCardLike = {handleCardLike}
               onCardDelete = {handleCardDelete}
-              /> */}
+            /> 
+
             <Route path="*">
               <Login 
                 handleLogin = {handleLogin}

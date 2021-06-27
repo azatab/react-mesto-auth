@@ -1,16 +1,15 @@
 import React from 'react'
-import PopupWithForm from './PopupWithForm'
+import PopupWithoutForm from './PopupWithForm'
 
 const InfoTooltip = ({message, ...rest}) => {
   return (
-    <PopupWithForm
+    <PopupWithoutForm
       name = {'auth'}
-      withSubmit = {false}
       {...rest}
     >
       <img src={message.image} alt="Статус авторизации" className="popup__tooltip-image" />
       <p className="popup__tooltip-text">{message.text}</p>
-    </PopupWithForm>    
+    </PopupWithoutForm>    
   )
 }
 

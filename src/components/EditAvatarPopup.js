@@ -17,20 +17,15 @@ function EditAvatarPopup({onUpdateAvatar,...rest}) {
 
   return (
     <PopupWithForm 
-        name={'avatar-update'}
-        title={'Обновить аватар'}
-        children={
-          <>
-            <input ref={avatarUrl} className="form__input" type="url" id="input-avatar-link" aria-label="ссылка" placeholder="Ссылка на аватар пользователя" name="link" required />
-              <span className="input-avatar-link-error form__input-error"></span>
-          </>
-        }
-        buttonLabel={'Сохранить'}
-        onSubmit = {handleSubmit}
-        withSubmit = {true}
-        {...rest}
-        //isOpen = {isEditAvatarPopupOpen}
-    />
+      name={'avatar-update'}
+      title={'Обновить аватар'}
+      buttonLabel={'Сохранить'}
+      onSubmit = {handleSubmit}
+      {...rest}
+    >
+      <input ref={avatarUrl} className="form__input" type="url" id="input-avatar-link" aria-label="ссылка" placeholder="Ссылка на аватар пользователя" name="link" required />
+      <span className="input-avatar-link-error form__input-error"></span>
+    </PopupWithForm>
   )
 }
 
